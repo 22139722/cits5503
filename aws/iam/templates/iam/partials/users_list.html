@@ -1,0 +1,17 @@
+<h4>{{ title }}</h4>
+<p>{{ users|length }} total</p>
+<ul class="fa-ul">
+    {% for user in users %}
+        <li>
+           <i class="fa fa-li fa-user"></i>
+            <p class="text-info"><strong>Username</strong> {{ user.UserName }} {% if user.PasswordLastUsed %}<br/><strong>Last login</strong> {{ user.PasswordLastUsed }}{% endif %}</p>
+
+            <p>ARN: <small>{{ user.Arn }}</small></p>
+            <p>ID: <small>{{ user.UserId }}</small></p>
+            <p>Created: <small>{{ user.CreateDate }}</small></p>
+
+        </li>
+    {% empty %}
+        <p>No users found</p>
+    {% endfor %}
+</ul>

@@ -1,0 +1,34 @@
+{% extends 'lib/base.html' %}
+
+
+{% block mainbody %}
+    <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-brand rounded box-shadow">
+        <div class="lh-100">
+            <h6 class="mb-0 text-white lh-100">IAM Inactive Users</h6>
+        </div>
+    </div>
+
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div id="inactive-users" class="card-body">
+                        <h4 class="card-title">Confirm deletion of the following users</h4>
+                        {% include 'iam/partials/users_list.html' %}
+
+                        <form method="POST">
+                            {% csrf_token %}
+                            <hr/>
+                            <div class="text-right"><button type="submit" class="btn btn-primary">Confirm</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-5"></div>
+
+{% endblock mainbody %}
