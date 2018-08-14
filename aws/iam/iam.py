@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils import timezone
 from lib.models import AWSCommandResponse
 from lib.utils import boto_client, boto_resource, DictOfLists
-from pprint import pprint
+from pprint import pprint, pformat
 import pytz
 
 
@@ -11,6 +11,16 @@ tz = pytz.timezone(settings.TIME_ZONE)
 
 
 # direct boto3 calls
+def get_user(username):
+    iam_client = boto_client('iam')
+    response = iam_client.get_user(UserName=username)
+    AWSCommandResponse.objects.create(
+        command='get_user',
+        response=pformat(response, indent=4)
+    )
+    return response.get('User')
+
+
 def list_users(path_prefix='/CITS5503'):
     iam_client = boto_client('iam')
     response = iam_client.list_users(PathPrefix=path_prefix)
@@ -84,9 +94,15 @@ def delete_inactive_users(path_prefix='/CITS5503'):
         except ClientError as e:
             responses.add(username, str(e))
 
-
-
     return responses
 
+
+def update_user_path(username, new_path):
+    iam_client = boto_client('iam')
+    response = iam_client.update_user(UserName=username, NewPath=new_path)
+    AWSCommandResponse.objects.create(
+        command='update_user',
+        response=pformat(response, indent=4),
+    )
 
 

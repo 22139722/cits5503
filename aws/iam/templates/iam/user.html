@@ -1,0 +1,43 @@
+{% extends 'lib/base.html' %}
+
+
+{% block mainbody %}
+    <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-brand rounded box-shadow">
+        <div class="lh-100">
+            <h6 class="mb-0 text-white lh-100">IAM User</h6>
+            <small>{{ iam_user.UserName }}</small>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="fa-ul">
+                            <li>
+                               <i class="fa fa-li fa-user"></i>
+                                <p class="text-info"><strong>Username</strong> {{ iam_user.UserName }} {% if iam_user.PasswordLastUsed %}<br/><strong>Last login</strong> {{ iam_user.PasswordLastUsed }}{% endif %}</p>
+
+                                <p>
+                                    Path: <small>{{ iam_user.Path }}</small>
+                                    {% if iam_user.Path == '/' %}
+                                        <form id="update-user-path-form" method="POST" action="{% url 'iam:update_user_path' iam_user.UserName 'CITS5503' %}">{% csrf_token %}</form>
+                                        <a href="#" onclick="$('#update-user-path-form').submit()">Add to path CITS5503</a>
+                                    {% endif %}
+
+                                </p>
+                                <p>ARN: <small>{{ iam_user.Arn }}</small></p>
+                                <p>ID: <small>{{ iam_user.UserId }}</small></p>
+                                <p>Created: <small>{{ iam_user.CreateDate }}</small></p>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock mainbody %}
