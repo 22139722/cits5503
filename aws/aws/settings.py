@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
 
     'iam',
+    'ec2',
     'lib',
 ]
 
@@ -130,3 +131,7 @@ STATIC_URL = '/static/'
 
 AWS_ACCESS_KEY_ID = 'publickey'
 AWS_SECRET_ACCESS_KEY_ID = 'secretkey'
+AWS_REGION = 'select a region'
+AWS_INSTANCE_TYPE_WHITELIST = [
+    't2.micro',
+]

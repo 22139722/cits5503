@@ -4,8 +4,8 @@
 {% block mainbody %}
     <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-brand rounded box-shadow">
         <div class="lh-100">
-            <h6 class="mb-0 text-white lh-100">IAM Users</h6>
-            <small>{{ users|length }} total</small>
+            <h6 class="mb-0 text-white lh-100">Dashboard</h6>
+            <small></small>
         </div>
     </div>
 
@@ -14,16 +14,13 @@
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <div id="active-users" class="card-body">
+                    <div id="ec2-instances" class="card-body">
 
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card">
-                    <div class="card-body" id="delete-inactive-users">
-                        <a href="{% url 'iam:delete_inactive_users' %}" >Delete all inactive users</a>
-                    </div>
                     <div id="inactive-users" class="card-body">
 
                     </div>
@@ -37,15 +34,13 @@
 {% block ajax %}
     <script>
         $.ajax({
-            url: "{% url 'iam:active_users_list' %}",
+            url: "{% url 'ec2:old_instances_list' %}?summary_only=1",
             method: 'GET',
             beforeSend: function() {
-                $('#active-users').html('<h2 class="text-center"><i class="fa fa-spinner fa-spin"></i></h2>')
+                $('#ec2-instances').html('<h2 class="text-center"><i class="fa fa-spinner fa-spin"></i></h2>')
             },
             success: function(response) {
-                console.log('success');
-                console.log(response);
-                $('#active-users').html(response);
+                $('#ec2-instances').html(response);
             }
         });
 
@@ -53,12 +48,10 @@
             url: "{% url 'iam:inactive_users_list' %}",
             method: 'GET',
             beforeSend: function() {
-                $('#delete-inactive-users').hide();
                 $('#inactive-users').html('<h2 class="text-center"><i class="fa fa-spinner fa-spin"></i></h2>')
             },
             success: function(response) {
                 $('#inactive-users').html(response);
-                $('#delete-inactive-users').show();
             }
         });
     </script>

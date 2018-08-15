@@ -18,14 +18,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-from lib import views
+from lib import views as lib_views
 
 admin.autodiscover()
 
 urlpatterns = [
     # path('', views_accounts.app_login, name='login'),
-    path('', views.home, name='home'),
+    path('', lib_views.dashboard, name='dashboard'),
     path('iam/', include('iam.urls')),
+    path('ec2/', include('ec2.urls')),
     # path('lib/', include('lib.urls')),
     path('admin/', admin.site.urls),
 ]

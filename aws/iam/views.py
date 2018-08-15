@@ -17,7 +17,7 @@ def active_users_list(request, json=False):
     if json:
         return JsonResponse(users)
     else:
-        return render(request, 'iam/partials/users_list.html', dict(users=users['Users'], title='Active /'))
+        return render(request, 'iam/partials/users_list.html', dict(users=users['Users'], title='Active / Users'))
 
 
 def inactive_users_list(request, json=False):
@@ -25,7 +25,7 @@ def inactive_users_list(request, json=False):
     if json:
         return JsonResponse(users)
     else:
-        return render(request, 'iam/partials/users_list.html', dict(users=users['Users'], title='Inactive /CITS5503'))
+        return render(request, 'iam/partials/users_list.html', dict(users=users['Users'], title='Inactive /CITS5503/ Users'))
 
 
 def users_list(request, json=False):

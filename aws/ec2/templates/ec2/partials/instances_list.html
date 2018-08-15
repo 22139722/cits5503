@@ -1,0 +1,29 @@
+<div class="text-center">
+    <h6>{{ title }}</h6>
+    <h5>{{ instances|length }}</h5>
+</div>
+
+{% if not summary_only %}
+    <ul class="fa-ul">
+        {% for instance in instances %}
+            <li>
+               <i class="fa fa-li fa-server"></i>
+                <p class="text-info">
+                    <strong>{{ instance.InstanceType }}</strong> {{ instance.InstanceId }} <i class="fa fa-key"></i> <strong>{{ instance.KeyName|default:"No key provided" }}</strong>
+                </p>
+                {% with status=instance.State.Name %}
+                    <p class="{% if status == 'running' %}text-success{% elif status == 'shutting-down' %}text-warning{% else %}text-danger{% endif %}">
+                        {{ status }}
+                    </p>
+                {% endwith %}
+                <p class="{% if instance.Old %}text-danger{% else %}text-success{% endif %}">
+                    <i class="fa fa-clock-o"></i> {{ instance.UpTime }}
+                </p>
+
+                {% if show_full_instance_details|default_if_none:False %}
+                    <div><pre>{{ instance }}</pre></div>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
